@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../mot/dist/index.iife.js"></script>
+    <script src="../dist/index.iife.js"></script>
+    <script src="../../mot-plugin-path/build/mot-plugin-path-iife.min.js"></script>
+    <style>
+        #app {
+            font-size: 80px;
+            width: 10px;
+            height: 10px;
+            background-color: blue;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='app'></div>
+</body>
+<script>
+    mot.use(DomRender);
+    mot.use(motPluginPath);
+    let Animation = mot
+        .create()
+        .moveTo(100, 100, 400, 'ease')
+        .scale({ x: 1.1, y: 0.8, duration: 100, transformOrigin: '50% 100%' })
+        .step([
+            { action: 'move', x: 200, y: 20 },
+            { action: 'scale', x: 1, y: 1 }
+        ])
+        .moveTo(300, 100, 400, 'ease')
+        .scale({ x: 1.05, y: 0.8, duration: 100, transformOrigin: '50% 100%' })
+        .step([
+            { action: 'move', x: 400, y: 40 },
+            { action: 'scale', x: 1, y: 1 }
+        ])
+        .path([{ x: 400, y: 40 }, { x: 500, y: 100 }, { x: 600, y: 40 }], { precision: 25 })
+        ;
+    console.log(Animation)
+    let renderer = mot.dom(document.getElementById('app'), Animation);
+    renderer.render();
+</script>
+
+</html>

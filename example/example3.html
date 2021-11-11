@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../../mot/dist/index-iife.min.js"></script>
+  <script src="../dist/index-iife.min.js"></script>
+  <style>
+    .circle {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      border: 100px solid black;
+      border-radius: 50%;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+  <div id='circle1' class='circle' style='transform:scale(0)'></div>
+  <div id='circle2' class='circle' style='transform:scale(0)'></div>
+  <div id='circle3' class='circle' style='transform:scale(0)'></div>
+</body>
+<script>
+  mot.use(MotDomRender);
+  let cirCleDoms = document.getElementsByClassName('circle');
+  console.log('',cirCleDoms);
+  for(let i = 0; i < cirCleDoms.length; i++){
+    let Animation = mot.create()
+    .wait(i*400)
+    .step([
+        {action: 'attribute',key:'opacity',value:'0.3'},
+        {action: 'attribute',key:'borderWidth',value:'0'},
+        {action: 'scale',x:0.7,y:0.7}
+    ],{
+      duration:1000,
+      timeFunction:'easeInOut',
+    })
+    let renderer = mot.dom(cirCleDoms[i], Animation);
+    renderer.render();
+  }
+</script>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../mot/dist/index.iife.js"></script>
+    <script src="../dist/index.iife.js"></script>
+    <style>
+        #app {
+            font-size: 80px;
+            width: 100px;
+            height: 100px;
+            background-color:green;
+        }
+        #app2 {
+            font-size: 80px;
+            width: 100px;
+            height: 100px;
+            background-color:red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='app'></div>
+    <div id='app2'></div>
+</body>
+<script>
+    mot.use(DomRender);
+    let Animation = mot
+        .create()
+        .scale(1.5,0.2)
+        ;
+        console.log(Animation)
+    let renderer = mot.dom(document.getElementById('app'), Animation);
+    renderer.render()
+    let Animation2 = mot
+        .create()
+        .scale({x:1.5,y:0.2,transformOrigin:"50% 100%"})
+        ;
+        console.log(Animation)
+    let renderer2 = mot.dom(document.getElementById('app2'), Animation2);
+    renderer2.render()
+
+</script>
+
+</html>
