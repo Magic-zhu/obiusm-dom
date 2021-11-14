@@ -629,7 +629,6 @@ class DomRender {
   insertKeyFrame(keyframe: string) {
     try {
       const style = document.createElement('style');
-      style.type = 'text/css';
       style.innerHTML = keyframe;
       document.getElementsByTagName('head')[0].appendChild(style);
     } catch (err) {
