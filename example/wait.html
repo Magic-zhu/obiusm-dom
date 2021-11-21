@@ -6,14 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="../../mot/dist/index.iife.js"></script>
-    <script src="../dist/index.iife.js"></script>
+    <script src="../../obiusm/dist/obiusm-iife.min.js"></script>
+    <script src="../dist/obiusm-dom-iife.min.js"></script>
     <style>
         #app {
             font-size: 80px;
             width: 100px;
             height: 100px;
-            background-color:green;
+            background-color: green;
         }
     </style>
 </head>
@@ -23,15 +23,15 @@
     <div id='app2'></div>
 </body>
 <script>
-    mot.use(DomRender);
-    let Animation = mot
+    obiusm.use(DomRender);
+    let Animation = obiusm
         .create()
-        .moveTo(200,200)
+        .moveTo(200, 200)
         .wait(1000)
-        .moveTo(0,0)
+        .moveTo(0, 0)
         ;
-        console.log(Animation)
-    let renderer = mot.dom(document.getElementById('app'), Animation);
+    console.log(Animation)
+    let renderer = obiusm.dom(document.getElementById('app'), Animation);
     renderer.render()
 </script>
 

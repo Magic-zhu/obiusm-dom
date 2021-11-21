@@ -6,20 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="../../mot/dist/index.iife.js"></script>
-    <script src="../dist/index.iife.js"></script>
+    <script src="../../obiusm/dist/obiusm-iife.min.js"></script>
+    <script src="../dist/obiusm-dom-iife.min.js"></script>
     <style>
         #app {
             font-size: 80px;
             width: 100px;
             height: 100px;
-            background-color:green;
+            background-color: green;
         }
+
         #app2 {
             font-size: 80px;
             width: 100px;
             height: 100px;
-            background-color:red;
+            background-color: red;
         }
     </style>
 </head>
@@ -29,24 +30,24 @@
     <div id='app2'></div>
 </body>
 <script>
-    mot.use(DomRender);
-    let Animation = mot
+    obiusm.use(DomRender);
+    let Animation = obiusm
         .create()
         .rotate(45)
         .rotate(90)
         .rotate(135)
         ;
-        console.log(Animation)
-    let renderer = mot.dom(document.getElementById('app'), Animation);
+    console.log(Animation)
+    let renderer = obiusm.dom(document.getElementById('app'), Animation);
     renderer.render()
-    let Animation2 = mot
+    let Animation2 = obiusm
         .create()
-        .rotate({z:45,transformOrigin:"100% 100%"})
-        .rotate({z:90,transformOrigin:"100% 100%"})
-        .rotate({z:135,transformOrigin:"100% 100%"})
+        .rotate({ z: 45, transformOrigin: "100% 100%" })
+        .rotate({ z: 90, transformOrigin: "100% 100%" })
+        .rotate({ z: 135, transformOrigin: "100% 100%" })
         ;
-        console.log(Animation)
-    let renderer2 = mot.dom(document.getElementById('app2'), Animation2);
+    console.log(Animation)
+    let renderer2 = obiusm.dom(document.getElementById('app2'), Animation2);
     renderer2.render()
 
 </script>

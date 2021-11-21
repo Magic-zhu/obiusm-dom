@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- <link rel="stylesheet" href="./index.css"> -->
-    <script src="../../mot/dist/index.iife.js"></script>
-    <script src="../dist/index.iife.js"></script>
+    <script src="../../obiusm/dist/obiusm-iife.min.js"></script>
+    <script src="../dist/obiusm-dom-iife.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -48,12 +48,12 @@
 <script>
     // document.styleSheets.insertRule('')
     let controller = document.getElementById('animateIt');
-    mot.use(DomRender)
-    mot.on('domRenderBeforeRender', () => {
+    obiusm.use(DomRender)
+    obiusm.on('domRenderBeforeRender', () => {
         console.log('domRenderBeforeRender')
     })
 
-    let Animation = mot.create()
+    let Animation = obiusm.create()
     Animation
         // .statusOn('rotate', "z,infinite 0.2s linear")
         // .step([
@@ -62,25 +62,25 @@
         //     { action: 'attribute', key: "borderRadius", value: "50%" },
         // ])
         .moveTo(200, 100, 400)
-        // .statusOff('rotate')
-        // .scale(1)
-        // .attribute('borderRadius','0%')
-        // .rotate(90, 200)
-        // .rotate(45)
-        // .wait(500)
-        // .moveTo(0,0,400)
-        // .rotate(0)
+    // .statusOff('rotate')
+    // .scale(1)
+    // .attribute('borderRadius','0%')
+    // .rotate(90, 200)
+    // .rotate(45)
+    // .wait(500)
+    // .moveTo(0,0,400)
+    // .rotate(0)
     // .rotate(0)
     console.log(Animation)
-    let renderer = mot.dom(document.getElementById('app'), Animation)
+    let renderer = obiusm.dom(document.getElementById('app'), Animation)
     controller.addEventListener('click', () => {
         renderer.render()
-        // mot.get('app').moveTo(100,100)
+        // obiusm.get('app').moveTo(100,100)
         // setTimeout(()=>{
-        //     mot.attribute('backgroundColor','green')
+        //     obiusm.attribute('backgroundColor','green')
         // },400)
         // setTimeout(()=>{
-        //     mot.moveTo(0,0)
+        //     obiusm.moveTo(0,0)
         // },800)
     })
 </script>

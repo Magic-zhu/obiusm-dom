@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="../../mot/dist/index.iife.js"></script>
+    <script src="../../obiusm/dist/index.iife.js"></script>
     <script src="../dist/index.iife.js"></script>
-    <script src="../../mot-plugin-path/build/mot-plugin-path-iife.min.js"></script>
+    <script src="../../obiusm-plugin-path/build/obiusm-plugin-path-iife.min.js"></script>
     <style>
         #app {
             font-size: 80px;
@@ -24,9 +24,9 @@
     <div id='app'></div>
 </body>
 <script>
-    mot.use(DomRender);
-    mot.use(motPluginPath);
-    let Animation = mot
+    obiusm.use(DomRender);
+    obiusm.use(obiusmPluginPath);
+    let Animation = obiusm
         .create()
         .moveTo(100, 100, 400, 'ease')
         .scale({ x: 1.1, y: 0.8, duration: 100, transformOrigin: '50% 100%' })
@@ -43,7 +43,7 @@
         .path([{ x: 400, y: 40 }, { x: 500, y: 100 }, { x: 600, y: 40 }], { precision: 25 })
         ;
     console.log(Animation)
-    let renderer = mot.dom(document.getElementById('app'), Animation);
+    let renderer = obiusm.dom(document.getElementById('app'), Animation);
     renderer.render();
 </script>
 

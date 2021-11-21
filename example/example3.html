@@ -6,8 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="../../mot/dist/index-iife.min.js"></script>
-  <script src="../dist/index-iife.min.js"></script>
+  <script src="../../obiusm/dist/obiusm-iife.min.js"></script>
+  <script src="../dist/obiusm-dom-iife.min.js"></script>
   <style>
     .circle {
       position: absolute;
@@ -31,21 +31,21 @@
   <div id='circle3' class='circle' style='transform:scale(0)'></div>
 </body>
 <script>
-  mot.use(MotDomRender);
+  obiusm.use(obiusmDomRender);
   let cirCleDoms = document.getElementsByClassName('circle');
-  console.log('',cirCleDoms);
-  for(let i = 0; i < cirCleDoms.length; i++){
-    let Animation = mot.create()
-    .wait(i*400)
-    .step([
-        {action: 'attribute',key:'opacity',value:'0.3'},
-        {action: 'attribute',key:'borderWidth',value:'0'},
-        {action: 'scale',x:0.7,y:0.7}
-    ],{
-      duration:1000,
-      timeFunction:'easeInOut',
-    })
-    let renderer = mot.dom(cirCleDoms[i], Animation);
+  console.log('', cirCleDoms);
+  for (let i = 0; i < cirCleDoms.length; i++) {
+    let Animation = obiusm.create()
+      .wait(i * 400)
+      .step([
+        { action: 'attribute', key: 'opacity', value: '0.3' },
+        { action: 'attribute', key: 'borderWidth', value: '0' },
+        { action: 'scale', x: 0.7, y: 0.7 }
+      ], {
+        duration: 1000,
+        timeFunction: 'easeInOut',
+      })
+    let renderer = obiusm.dom(cirCleDoms[i], Animation);
     renderer.render();
   }
 </script>

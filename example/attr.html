@@ -6,14 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="../../mot/dist/index.iife.js"></script>
-    <script src="../dist/index.iife.js"></script>
+    <script src="../../obiusm/dist/obiusm-iife.min.js"></script>
+    <script src="../dist/obiusm-dom-iife.min.js"></script>
     <style>
         #app {
             font-size: 80px;
             width: 100px;
             height: 100px;
-            background-color:blue;
+            background-color: blue;
         }
     </style>
 </head>
@@ -22,20 +22,20 @@
     <div id='app'></div>
 </body>
 <script>
-    mot.use(DomRender);
-    let Animation = mot
+    obiusm.use(DomRender);
+    let Animation = obiusm
         .create()
-        .attribute('backgroundColor','red')
-        .attribute('backgroundColor','orange')
-        .attribute('backgroundColor','yellow')
-        .attribute('backgroundColor','green')
-        .attribute('backgroundColor','blue')
-        .attribute('backgroundColor','purple')
-        .attribute('borderRadius','50%')
-        .attribute('opacity','0')
+        .attribute('backgroundColor', 'red')
+        .attribute('backgroundColor', 'orange')
+        .attribute('backgroundColor', 'yellow')
+        .attribute('backgroundColor', 'green')
+        .attribute('backgroundColor', 'blue')
+        .attribute('backgroundColor', 'purple')
+        .attribute('borderRadius', '50%')
+        .attribute('opacity', '0')
         ;
-        console.log(Animation)
-    let renderer = mot.dom(document.getElementById('app'), Animation);
+    console.log(Animation)
+    let renderer = obiusm.dom(document.getElementById('app'), Animation);
     renderer.render()
 </script>
 
