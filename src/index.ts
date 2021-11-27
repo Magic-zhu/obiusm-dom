@@ -149,18 +149,10 @@ class DomRender {
     let index: number = 0;
     const next = (item: StyleObject, time: number = -1) => {
       const done = () => {
-        if (item.status !== 'statusOn' && item.status !== 'statusOff') {
-          const {style} = item;
-          // eslint-disable-next-line guard-for-in
-          for (const attr in style) {
-            this.target.style[attr] = style[attr];
-          }
-        } else {
-          const MAP = {
-            statusOn: this.renderStatusOn.bind(this),
-            statusOff: this.renderStatusOff.bind(this),
-          };
-          MAP[item.status](this.taskQueue[index]);
+        const {style} = item;
+        // eslint-disable-next-line guard-for-in
+        for (const attr in style) {
+          this.target.style[attr] = style[attr];
         }
         index++;
         if (index < len) {
@@ -174,7 +166,7 @@ class DomRender {
       if (time === -1) {
         done();
       } else if (time === -2) {
-        requestAnimationFrame(()=>{
+        requestAnimationFrame(() => {
           done();
         });
       } else {
@@ -517,6 +509,10 @@ class DomRender {
       transitionTimingFunction,
       transitionProperty,
     };
+  }
+
+  keyframe(params) {
+
   }
 
   /**

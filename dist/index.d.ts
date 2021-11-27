@@ -56,6 +56,7 @@ declare class DomRender {
         transitionTimingFunction: string;
         transitionProperty: string;
     };
+    keyframe(params: any): void;
     humpParse(s: string): string;
     splitStyleToArray(styleString: string): any[];
     splitTransitionPropertyToArray(property: string): string[];

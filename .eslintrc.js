@@ -15,5 +15,8 @@ module.exports = {
     '@typescript-eslint',
   ],
   'rules': {
+    'require-jsdoc': 'off',
+    'indent': 'off',
+    'linebreak-style': 'off',
   },
 };

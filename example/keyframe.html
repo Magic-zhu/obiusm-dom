@@ -21,5 +21,27 @@
 <body>
     <div id='app'></div>
 </body>
+<script>
+    obiusm.use(ObiusmDom);
+    let animation = obiusm
+        .create()
+        .keyframe([
+            {
+                process: '0%',
+                action: {
+                    transform: 'translateX(20)',
+                    backgroundColor: 'red',
+                }
+            },
+            {
+                process: '100%',
+                action: {
+                    transform: 'translateX(20)',
+                    backgroundColor: 'red',
+                }
+            },
+        ])
+
+</script>
 
 </html>
