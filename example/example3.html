@@ -31,9 +31,8 @@
   <div id='circle3' class='circle' style='transform:scale(0)'></div>
 </body>
 <script>
-  obiusm.use(obiusmDomRender);
+  obiusm.use(ObiusmDom);
   let cirCleDoms = document.getElementsByClassName('circle');
-  console.log('', cirCleDoms);
   for (let i = 0; i < cirCleDoms.length; i++) {
     let Animation = obiusm.create()
       .wait(i * 400)
