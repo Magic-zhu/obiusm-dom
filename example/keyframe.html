@@ -14,6 +14,7 @@
             width: 100px;
             height: 100px;
             background-color: green;
+            /* animation: name duration timing-function delay iteration-count direction fill-mode; */
         }
     </style>
 </head>
@@ -22,26 +23,28 @@
     <div id='app'></div>
 </body>
 <script>
+    const app = document.getElementById('app');
     obiusm.use(ObiusmDom);
     let animation = obiusm
         .create()
-        .keyframe([
+        .keyframe('move', [
             {
                 process: '0%',
                 action: {
-                    transform: 'translateX(20)',
-                    backgroundColor: 'red',
+                    backgroundColor: 'green',
+                    left: '0px',
                 }
             },
             {
                 process: '100%',
                 action: {
-                    transform: 'translateX(20)',
                     backgroundColor: 'red',
+                    left: '300px'
                 }
             },
         ])
-
+    console.log(animation)
+    const renderer = obiusm.dom(app, animation).render()
 </script>
 
 </html>

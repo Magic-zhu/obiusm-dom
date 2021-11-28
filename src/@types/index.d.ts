@@ -66,3 +66,27 @@ export interface StatusDescription {
     description?:string,
     transformOrigin:string,
 }
+
+export interface KeyframeAction {
+    [key:string]:string
+}
+
+export interface KeyframeOptions {
+    id:string,
+    keyframe:any [],
+    uid:string,
+    duration?: number;
+    timeFunction?: string;
+    fillMode?:string,
+    delay:number,
+    iterationCount:string,
+    direction:string,
+    playState:string,
+}
+
+export interface KeyframeItem {
+    process:string
+    action:KeyframeAction
+}
+
+export type Keyframe = KeyframeItem []

@@ -4,6 +4,8 @@ import {
   AttributeOptions,
   RotateOptions,
   ScaleOptions,
+  KeyframeOptions,
+  KeyframeItem,
 } from './@types';
 
 declare const window: any;
@@ -143,7 +145,7 @@ class DomRender {
   render() {
     DomRender.mot.emit('domRenderBeforeRender', this);
     const waitingList: StyleObject[] = this.getStyleFromTaskQueue(
-        this.taskQueue,
+      this.taskQueue,
     );
     const len: number = waitingList.length;
     let index: number = 0;
@@ -157,7 +159,7 @@ class DomRender {
         index++;
         if (index < len) {
           next(
-              waitingList[index],
+            waitingList[index],
             index === 0 ? 0 : waitingList[index - 1].duration,
           );
         }
@@ -258,8 +260,8 @@ class DomRender {
   renderStatusOff(item: Action) {
     const type = item.status.type;
     const r: string[] = this.target.className
-        .split(' ')
-        .filter((item) => item.indexOf(`mot-class-${type}`) !== -1);
+      .split(' ')
+      .filter((item) => item.indexOf(`mot-class-${type}`) !== -1);
     r.forEach((item) => {
       this.removeClassName(this.target, item);
     });
@@ -365,6 +367,7 @@ class DomRender {
       scale: this.scale,
       attribute: this.attribute,
       move: this.move,
+      keyframe: this.keyframe,
     };
     return TYPE_MAP[item.action].bind(this)(item);
   }
@@ -386,8 +389,8 @@ class DomRender {
     let transitionProperty = `transform`;
     transform = this.mergeTransForm(this.originTransform, transform);
     transitionProperty = this.mergeTransitionProperty(
-        this.originTransitionProperty,
-        transitionProperty,
+      this.originTransitionProperty,
+      transitionProperty,
     );
     this.update(transform, transitionProperty);
     return {
@@ -412,8 +415,8 @@ class DomRender {
     const transitionTimingFunction = `${params.timeFunction}`;
     let transitionProperty = `left,top`;
     transitionProperty = this.mergeTransitionProperty(
-        this.originTransitionProperty,
-        transitionProperty,
+      this.originTransitionProperty,
+      transitionProperty,
     );
     this.update(null, transitionProperty);
     return {
@@ -443,8 +446,8 @@ class DomRender {
     let transitionProperty = `transform`;
     transform = this.mergeTransForm(this.originTransform, transform);
     transitionProperty = this.mergeTransitionProperty(
-        this.originTransitionProperty,
-        transitionProperty,
+      this.originTransitionProperty,
+      transitionProperty,
     );
     this.update(transform, transitionProperty);
     return {
@@ -474,8 +477,8 @@ class DomRender {
     let transitionProperty = `transform`;
     transform = this.mergeTransForm(this.originTransform, transform);
     transitionProperty = this.mergeTransitionProperty(
-        this.originTransitionProperty,
-        transitionProperty,
+      this.originTransitionProperty,
+      transitionProperty,
     );
     this.update(transform, transitionProperty);
     return {
@@ -499,8 +502,8 @@ class DomRender {
     const transitionTimingFunction = `${params.timeFunction}`;
     let transitionProperty = `${this.humpParse(params.key)}`;
     transitionProperty = this.mergeTransitionProperty(
-        this.originTransitionProperty,
-        transitionProperty,
+      this.originTransitionProperty,
+      transitionProperty,
     );
     this.update(null, transitionProperty);
     return {
@@ -511,8 +514,25 @@ class DomRender {
     };
   }
 
-  keyframe(params) {
-
+  keyframe(params: KeyframeOptions) {
+    console.log(params);
+    let keyframeString = '';
+    params.keyframe.forEach((item: KeyframeItem) => {
+      let temp = '';
+      let actions = '';
+      for (const key in item.action) {
+        actions+=`${this.humpParse(key)}:${item.action[key]};`;
+      }
+      temp = `${item.process} {${actions}}`;
+      keyframeString += temp;
+    });
+    console.log(keyframeString);
+    this.insertKeyFrame(`@keyframes obiusm-${params.uid} {${keyframeString}}`);
+    const className = `obiusm-class-${params.uid}`;
+    this.addStylesheetRules([
+      ['.' + className, ['animation', `obiusm-${params.uid} 1s`]],
+    ]);
+    this.addClassName(this.target, className);
   }
 
   /**
@@ -567,8 +587,8 @@ class DomRender {
    */
   splitTransitionPropertyToArray(property: string): string[] {
     const array = property
-        .split(',')
-        .filter((item) => item !== '' || item !== undefined);
+      .split(',')
+      .filter((item) => item !== '' || item !== undefined);
     return array;
   }
 
@@ -598,6 +618,7 @@ class DomRender {
       let j = 1;
       let decl = decls[i];
       const selector = decl[0];
+      console.log('selector', selector);
       let rulesStr = '';
       if (Object.prototype.toString.call(decl[1][0]) === '[object Array]') {
         decl = decl[1];

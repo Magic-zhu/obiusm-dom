@@ -1,4 +1,4 @@
-import { Action, StyleObject, AttributeOptions, RotateOptions, ScaleOptions } from './@types';
+import { Action, StyleObject, AttributeOptions, RotateOptions, ScaleOptions, KeyframeOptions } from './@types';
 declare class DomRender {
     static pluginName: string;
     static installed: boolean;
@@ -56,7 +56,7 @@ declare class DomRender {
         transitionTimingFunction: string;
         transitionProperty: string;
     };
-    keyframe(params: any): void;
+    keyframe(params: KeyframeOptions): void;
     humpParse(s: string): string;
     splitStyleToArray(styleString: string): any[];
     splitTransitionPropertyToArray(property: string): string[];
