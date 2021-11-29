@@ -137,12 +137,11 @@ class DomRender {
     }
   }
 
-  /**
-   *
-   *
-   * @memberof DomRender
-   */
-  render() {
+/**
+ *
+ * @memberof DomRender
+ */
+render() {
     DomRender.mot.emit('domRenderBeforeRender', this);
     const waitingList: StyleObject[] = this.getStyleFromTaskQueue(
       this.taskQueue,
@@ -530,7 +529,18 @@ class DomRender {
     this.insertKeyFrame(`@keyframes obiusm-${params.uid} {${keyframeString}}`);
     const className = `obiusm-class-${params.uid}`;
     this.addStylesheetRules([
-      ['.' + className, ['animation', `obiusm-${params.uid} 1s`]],
+      ['.' + className, [
+        'animation',
+        `obiusm-${params.uid} 
+        ${params.duration} 
+        ${params.timeFunction} 
+        ${params.delay}
+        ${params.iterationCount}
+        ${params.direction} 
+        ${params.fillMode}
+        `,
+      ],
+    ],
     ]);
     this.addClassName(this.target, className);
   }
