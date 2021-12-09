@@ -7,7 +7,7 @@ export default [
     plugins: [
       resolve(),
       typescript(),
-      // terser(),
+      terser(),
     ],
     output: [
       {

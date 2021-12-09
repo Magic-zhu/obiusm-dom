@@ -98,9 +98,9 @@ class DomRender {
   getOriginStyleTransform(element: HTMLElement) {
     let transform: string = element.style.transform;
     transform =
-      transform === '' ?
-        window.getComputedStyle(element, null).transform :
-        transform;
+      transform === ''
+        ? window.getComputedStyle(element, null).transform
+        : transform;
     if (transform === '' || transform === null || transform === 'none') {
       return [];
     }
@@ -137,11 +137,11 @@ class DomRender {
     }
   }
 
-/**
- *
- * @memberof DomRender
- */
-render() {
+  /**
+   *
+   * @memberof DomRender
+   */
+  render() {
     DomRender.mot.emit('domRenderBeforeRender', this);
     const waitingList: StyleObject[] = this.getStyleFromTaskQueue(
       this.taskQueue,
@@ -181,90 +181,6 @@ render() {
     }, 0);
   }
 
-  /**
-   *
-   *
-   * @param {Action} item
-   * @memberof DomRender
-   */
-  renderStatusOn(item: Action) {
-    if (
-      item.status &&
-      item.status.type === 'rotate' &&
-      item.status.description !== ''
-    ) {
-      const name = `rotate${new Date().getTime()}`;
-      let startTransform: string;
-      let endTransform: string;
-      const direction: string = item.status.description.split(',')[0].trim();
-      const params: string = item.status.description.split(',')[1].trim();
-      if (direction === 'x' || direction === 'X') {
-        startTransform = `rotateX(0)`;
-        endTransform = `rotateX(360deg)`;
-      }
-      if (direction === 'y' || direction === 'Y') {
-        startTransform = `rotateY(0)`;
-        endTransform = `rotateY(360deg)`;
-      }
-      if (direction === 'z' || direction === 'Z') {
-        startTransform = `rotateZ(0)`;
-        endTransform = `rotateZ(360deg)`;
-      }
-      this.insertKeyFrame(`@keyframes ${name} {
-          from {transform:${startTransform};}
-          to {transform:${endTransform};
-          transform-origin:${item.status.transformOrigin}}}
-        }`);
-      const className = `mot-class-rotate-${new Date().getTime()}`;
-      this.addStylesheetRules([
-        ['.' + className, ['animation', `${name} ${params}`]],
-      ]);
-      this.addClassName(this.target, className);
-    }
-
-    if (
-      item.status &&
-      item.status.type === 'scale' &&
-      item.status.description !== ''
-    ) {
-      const name = `scale${new Date().getTime()}`;
-      const direction: string = item.status.description.split(',')[0].trim();
-      const startDirectionX = direction.split('|')[0];
-      const startDirectionY = direction.split('|')[1];
-      const endDirectionX = direction.split('|')[2];
-      const endDirectionY = direction.split('|')[3];
-      const params: string = item.status.description.split(',')[1].trim();
-      const startTransform = `scale(${startDirectionX},${startDirectionY})`;
-      const endTransform = `scale(${endDirectionX},${endDirectionY})`;
-      this.insertKeyFrame(`@keyframes ${name} {
-        from {transform:${startTransform};
-        transform-origin:${item.status.transformOrigin}}
-        to {transform:${endTransform};
-        transform-origin:${item.status.transformOrigin}}
-      }`);
-      const className = `mot-class-scale-${new Date().getTime()}`;
-      this.addStylesheetRules([
-        ['.' + className, ['animation', `${name} ${params}`]],
-      ]);
-      this.addClassName(this.target, className);
-    }
-  }
-
-  /**
-   *
-   *
-   * @param {Action} item
-   * @memberof DomRender
-   */
-  renderStatusOff(item: Action) {
-    const type = item.status.type;
-    const r: string[] = this.target.className
-      .split(' ')
-      .filter((item) => item.indexOf(`mot-class-${type}`) !== -1);
-    r.forEach((item) => {
-      this.removeClassName(this.target, item);
-    });
-  }
   /**
    *
    *
@@ -380,9 +296,9 @@ render() {
    */
   translate(params: any) {
     let transform =
-      params.z !== undefined ?
-        `translate3d(${params.x},${params.y})` :
-        `translate(${params.x},${params.y},${params.z})`;
+      params.z !== undefined
+        ? `translate3d(${params.x},${params.y})`
+        : `translate(${params.x},${params.y},${params.z})`;
     const transitionDuration = `${params.duration}ms`;
     const transitionTimingFunction = `${params.timeFunction}`;
     let transitionProperty = `transform`;
@@ -436,9 +352,9 @@ render() {
    */
   scale(params: ScaleOptions) {
     let transform =
-      params.z !== undefined ?
-        `scale3d(${params.x},${params.y},${params.z})` :
-        `scale(${params.x},${params.y})`;
+      params.z !== undefined
+        ? `scale3d(${params.x},${params.y},${params.z})`
+        : `scale(${params.x},${params.y})`;
     const transitionDuration = `${params.duration}ms`;
     const transitionTimingFunction = `${params.timeFunction}`;
     const transformOrigin = `${params.transformOrigin}`;
@@ -467,9 +383,9 @@ render() {
    */
   rotate(params: RotateOptions) {
     let transform =
-      params.x !== undefined || params.y !== undefined ?
-        `rotate3d(${params.x}deg,${params.y}deg,${params.z}deg)` :
-        `rotate(${params.z}deg)`;
+      params.x !== undefined || params.y !== undefined
+        ? `rotate3d(${params.x}deg,${params.y}deg,${params.z}deg)`
+        : `rotate(${params.z}deg)`;
     const transitionDuration = `${params.duration}ms`;
     const transitionTimingFunction = `${params.timeFunction}`;
     const transformOrigin = `${params.transformOrigin}`;
@@ -520,27 +436,28 @@ render() {
       let temp = '';
       let actions = '';
       for (const key in item.action) {
-        actions+=`${this.humpParse(key)}:${item.action[key]};`;
+        actions += `${this.humpParse(key)}:${item.action[key]};`;
       }
       temp = `${item.process} {${actions}}`;
       keyframeString += temp;
     });
-    console.log(keyframeString);
     this.insertKeyFrame(`@keyframes obiusm-${params.uid} {${keyframeString}}`);
     const className = `obiusm-class-${params.uid}`;
     this.addStylesheetRules([
-      ['.' + className, [
-        'animation',
-        `obiusm-${params.uid} 
-        ${params.duration} 
-        ${params.timeFunction} 
-        ${params.delay}
-        ${params.iterationCount}
-        ${params.direction} 
-        ${params.fillMode}
+      [
+        '.' + className,
+        [
+          'animation',
+          `obiusm-${params.uid}${' '} 
+        ${params.duration + 'ms' || '0.4s'}${' '}
+        ${params.timeFunction || 'ease'}${' '}
+        ${params.delay || '0s'}${' '}
+        ${params.iterationCount === undefined ? 1 : params.iterationCount}${' '}
+        ${params.direction === undefined ? 'normal' : params.direction}${' '}
+        ${params.fillMode === undefined ? 'none' : params.fillMode}${' '}
         `,
+        ],
       ],
-    ],
     ]);
     this.addClassName(this.target, className);
   }
@@ -628,7 +545,6 @@ render() {
       let j = 1;
       let decl = decls[i];
       const selector = decl[0];
-      console.log('selector', selector);
       let rulesStr = '';
       if (Object.prototype.toString.call(decl[1][0]) === '[object Array]') {
         decl = decl[1];
@@ -641,6 +557,7 @@ render() {
       }
 
       if (s.insertRule) {
+        console.log(selector + '{' + rulesStr + '}');
         s.insertRule(selector + '{' + rulesStr + '}', s.cssRules.length);
       } else {
         /* IE */
@@ -688,6 +605,10 @@ render() {
     c = c.replace(className, '');
     dom.className = c;
   }
+
+  pause() {}
+
+  play() {}
 }
 
 export default DomRender;

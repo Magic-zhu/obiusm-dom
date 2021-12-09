@@ -17,8 +17,6 @@ declare class DomRender {
     getOriginStyleTransform(element: HTMLElement): any[];
     initStyle(taskQueue: Action[]): void;
     render(): void;
-    renderStatusOn(item: Action): void;
-    renderStatusOff(item: Action): void;
     mergeTransForm(origin: any[], newStyle: string): string;
     mergeTransitionProperty(origin: string[], newProperty: string): string;
     getStyleFromTaskQueue(taskQueue: any[]): StyleObject[];
@@ -64,5 +62,7 @@ declare class DomRender {
     insertKeyFrame(keyframe: string): void;
     addClassName(dom: HTMLElement, className: string): void;
     removeClassName(dom: HTMLElement, className: string): void;
+    pause(): void;
+    play(): void;
 }
 export default DomRender;

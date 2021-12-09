@@ -42,7 +42,11 @@
                     left: '300px'
                 }
             },
-        ])
+        ], {
+            duration: 2000,
+            direction: 'alternate',
+            iterationCount: 10
+        })
     console.log(animation)
     const renderer = obiusm.dom(app, animation).render()
 </script>
