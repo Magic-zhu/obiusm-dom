@@ -3,11 +3,12 @@
   "version": "0.0.01",
   "description": "dom render",
   "main": "./dist/obiusm-dom-umd.min.js",
-  "module":"./dist/obiusm-dom-ems.min.js",
+  "module": "./dist/obiusm-dom-ems.min.js",
   "types": "./dist/'",
   "scripts": {
     "build": "rollup --config",
-    "start": "rollup --config -w"
+    "start": "rollup --config -w",
+    "docs":"typedoc --out docs src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -21,8 +22,7 @@
   ],
   "author": "朱睿家",
   "license": "MIT",
-  "bugs": {
-  },
+  "bugs": {},
   "homepage": "",
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.0.0",
@@ -37,6 +37,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
     "tslib": "^2.0.3",
+    "typedoc": "^0.22.10",
     "typescript": "^4.1.2"
   },
   "dependencies": {}

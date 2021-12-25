@@ -6,6 +6,9 @@ export interface Action {
     parent: Action | ActionTree | null;
     time?: number;
     duration?: number;
+    /**
+     * 时间函数
+     */
     timeFunction?: string;
     status?:StatusDescription;
 }
@@ -52,6 +55,7 @@ export interface MoveOptions {
     y?: number | string;
     duration?: number;
     timeFunction?: string;
+
 }
 
 export interface AttributeOptions {
@@ -90,3 +94,8 @@ export interface KeyframeItem {
 }
 
 export type Keyframe = KeyframeItem []
+
+
+export interface CommonObject {
+    [key:string]:any
+}

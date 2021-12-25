@@ -9,46 +9,85 @@
     <script src="../../obiusm/dist/obiusm-iife.min.js"></script>
     <script src="../dist/obiusm-dom-iife.min.js"></script>
     <style>
+        body {
+            padding-top: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .box {
+          width: 500px;
+          height: 500px;
+          background-color: #000000;
+          opacity: 0.4;
+          position:relative;
+        }
         #app {
             font-size: 80px;
             width: 100px;
             height: 100px;
             background-color: green;
-            /* animation: name duration timing-function delay iteration-count direction fill-mode; */
         }
     </style>
 </head>
+<script>
+  (function() {
+    var script = document.createElement('script');
+    script.onload = function() {
+      var stats = new Stats();
+      document.body.appendChild(stats.dom);
+      requestAnimationFrame(function loop() {
+        stats.update();
+        requestAnimationFrame(loop);
+      });
+    };
+    script.src = '//mrdoob.github.io/stats.js/build/stats.min.js';
+    document.head.appendChild(script);
+  })();
+</script>
 
 <body>
+  <div class='box'>
     <div id='app'></div>
+  </div>
 </body>
 <script>
-    const app = document.getElementById('app');
-    obiusm.use(ObiusmDom);
-    let animation = obiusm
-        .create()
-        .keyframe('move', [
-            {
-                process: '0%',
-                action: {
-                    backgroundColor: 'green',
-                    left: '0px',
-                }
-            },
-            {
-                process: '100%',
-                action: {
-                    backgroundColor: 'red',
-                    left: '300px'
-                }
-            },
-        ], {
-            duration: 2000,
-            direction: 'alternate',
-            iterationCount: 10
-        })
-    console.log(animation)
-    const renderer = obiusm.dom(app, animation).render()
+  const app = document.getElementById('app');
+  obiusm.use(ObiusmDom);
+  let animation = obiusm
+    .create()
+    .keyframe('move', [
+      {
+        process: '0%',
+        action: {
+          backgroundColor: 'green',
+          left: '0px',
+          borderRadius:'0%'
+        },
+      },
+      {
+        process: '50%',
+        action: {
+          backgroundColor: 'blue',
+          left: '150px',
+          borderRadius:'50%'
+        },
+      },
+      {
+        process: '100%',
+        action: {
+          backgroundColor: 'red',
+          left: '300px',
+          borderRadius:'0%'
+        },
+      },
+    ], {
+      duration: 2000,
+      direction: 'alternate',
+      iterationCount: 'infinite',
+    });
+  console.log(animation);
+  obiusm.dom(app, animation).render();
 </script>
 
 </html>

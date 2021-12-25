@@ -6,7 +6,8 @@ import {
   ScaleOptions,
   KeyframeOptions,
   KeyframeItem,
-} from './@types';
+  CommonObject,
+} from './index.d';
 
 declare const window: any;
 
@@ -22,7 +23,13 @@ class DomRender {
   Animation: any;
   taskQueue: any[];
   originTransform: any[];
-  originTransitionProperty: string[];
+  originTransitionProperty: string[] = [];
+
+  /**
+   * Record the style every step
+   */
+  stylesRecordQueue:CommonObject [] = [];
+
   timeLine: any[];
 
   tempQueue: Object[];
@@ -65,14 +72,12 @@ class DomRender {
    */
   init() {
     this.originTransform = this.getOriginStyleTransform(this.target);
-    this.originTransitionProperty = [];
     const animations = this.Animation.actions;
     this.taskQueue = animations.children || [];
     this.initStyle(this.taskQueue);
   }
 
   /**
-   *
    * update this style
    * @param {(string | null)} transform
    * @param {(string | null)} transitionProperty
@@ -430,7 +435,6 @@ class DomRender {
   }
 
   keyframe(params: KeyframeOptions) {
-    console.log(params);
     let keyframeString = '';
     params.keyframe.forEach((item: KeyframeItem) => {
       let temp = '';
@@ -521,15 +525,15 @@ class DomRender {
 
   /**
    * @example
-  addStylesheetRules([
-    ['h2', // 还接受第二个参数作为数组中的数组
-      ['color', 'red'],
-      ['background-color', 'green', true] // 'true' for !important rules
-    ],
-    ['.myClass',
-      ['background-color', 'yellow']
-    ]
-  ]);
+   addStylesheetRules([
+   ['h2', // 还接受第二个参数作为数组中的数组
+   ['color', 'red'],
+   ['background-color', 'green', true] // 'true' for !important rules
+   ],
+   ['.myClass',
+   ['background-color', 'yellow']
+   ]
+   ]);
    * @param {*} decls
    * @memberof DomRender
    */
@@ -557,7 +561,6 @@ class DomRender {
       }
 
       if (s.insertRule) {
-        console.log(selector + '{' + rulesStr + '}');
         s.insertRule(selector + '{' + rulesStr + '}', s.cssRules.length);
       } else {
         /* IE */

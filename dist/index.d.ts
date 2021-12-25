@@ -1,4 +1,4 @@
-import { Action, StyleObject, AttributeOptions, RotateOptions, ScaleOptions, KeyframeOptions } from './@types';
+import { Action, StyleObject, AttributeOptions, RotateOptions, ScaleOptions, KeyframeOptions, CommonObject } from './index.d';
 declare class DomRender {
     static pluginName: string;
     static installed: boolean;
@@ -8,6 +8,7 @@ declare class DomRender {
     taskQueue: any[];
     originTransform: any[];
     originTransitionProperty: string[];
+    stylesRecordQueue: CommonObject[];
     timeLine: any[];
     tempQueue: Object[];
     constructor(dom: HTMLElement, Animation: any);

@@ -19,5 +19,6 @@ module.exports = {
     'indent': 'off',
     'linebreak-style': 'off',
     'guard-for-in': 'off',
+    'operator-linebreak': 'off',
   },
 };

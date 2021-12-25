@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../obiusm/dist/obiusm-iife.min.js"></script>
+    <script src="../dist/obiusm-dom-iife.min.js"></script>
+</head>
+<body>
+    <div id='app'></div>
+</body>
+<script>
+    obiusm.use(ObiusmDom);
+    const animation = obiusm.create();
+    animation.moveTo({
+        x:200, 
+        y:200,
+        frameFunction:(dom)=>{
+            return x
+        }
+    })
+    console.log(animation)
+</script>
+</html>
