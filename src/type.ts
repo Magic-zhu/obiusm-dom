@@ -20,7 +20,8 @@ export interface ActionTree {
 export interface StyleObject {
     duration: number,
     style:Object,
-    status?:string
+    status?:string,
+    type?:string,
 }
 
 export interface TranslateOptions {
@@ -98,4 +99,11 @@ export type Keyframe = KeyframeItem []
 
 export interface CommonObject {
     [key:string]:any
+}
+
+export enum TaskProcessType {
+    'KEYFRAME' = 'KEYFRAME',
+    'MOVE' = 'move',
+    'ROTATE' = 'rotate',
+    'STOP' = 'stop'
 }
