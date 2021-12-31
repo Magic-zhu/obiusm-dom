@@ -30,7 +30,7 @@ class DomRender {
   /**
    * Record the style every step
    */
-  stylesRecordQueue: CommonObject [] = [];
+  stylesRecordQueue: CommonObject[] = [];
 
   timeLine: any[];
 
@@ -44,7 +44,7 @@ class DomRender {
   /**
    *  render status
    */
-  processStatus:ProcessStatus = ProcessStatus.STOP;
+  processStatus: ProcessStatus = ProcessStatus.STOP;
 
   /**
    * Creates an instance of DomRender.
@@ -72,11 +72,9 @@ class DomRender {
   static install(mot: any) {
     this.mot = mot;
     // register a function on the 'mot'
-    mot.register(
-      'dom',
-      (dom: HTMLElement, Animation: any) => {
-        return new DomRender(dom, Animation);
-      });
+    mot.register('dom', (dom: HTMLElement, Animation: any) => {
+      return new DomRender(dom, Animation);
+    });
   }
 
   /**
@@ -156,10 +154,6 @@ class DomRender {
     }
   }
 
-  /**
-   *
-   * @memberof DomRender
-   */
   render() {
     const waitingList: StyleObject[] = this.getStyleFromTaskQueue(
       this.taskQueue,
@@ -170,7 +164,7 @@ class DomRender {
       const done = () => {
         this.processStatus = ProcessStatus.PLAYING;
         const {style} = item;
-        this.currentTaskProcessType = TaskProcessType[item.type.toUpperCase()]
+        this.currentTaskProcessType = TaskProcessType[item.type.toUpperCase()];
         // eslint-disable-next-line guard-for-in
         for (const attr in style) {
           this.target.style[attr] = style[attr];
@@ -263,31 +257,39 @@ class DomRender {
       if (item.type == 'group') {
         item.children.forEach((child) => {
           child.duration = item.duration;
-          styleArray.push({style: this.transferAction(child), duration: -1,type:item.action});
+          styleArray.push({
+            style: this.transferAction(child),
+            duration: -1,
+            type: item.action,
+          });
         });
-        styleArray.push({style: {}, duration: item.duration,type:item.action});
+        styleArray.push({
+          style: {},
+          duration: item.duration,
+          type: item.action,
+        });
       } else if (item.action == 'wait') {
-        styleArray.push({style: {}, duration: item.time,type:item.action});
+        styleArray.push({style: {}, duration: item.time, type: item.action});
       } else if (item.action == 'statusOn' || item.action == 'statusOff') {
         styleArray.push({
           style: {},
           duration: item.duration,
           status: item.action,
-          type:item.action
+          type: item.action,
         });
       } else if (item.action === 'path') {
         item.points.forEach((point) => {
           styleArray.push({
             style: {left: `${point.x}px`, top: `${point.y}px`},
             duration: -2,
-            type:item.action
+            type: item.action,
           });
         });
       } else {
         styleArray.push({
           style: this.transferAction(item),
           duration: item.duration,
-          type:item.action
+          type: item.action,
         });
       }
     });
@@ -630,12 +632,9 @@ class DomRender {
     dom.className = c;
   }
 
-  pause() {
+  pause() {}
 
-  }
-
-  play() {
-  }
+  play() {}
 }
 
 export default DomRender;
