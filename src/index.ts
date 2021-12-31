@@ -1,13 +1,15 @@
 import {
   Action,
-  StyleObject,
   AttributeOptions,
+  CommonObject,
+  KeyframeItem,
+  KeyframeOptions,
+  ProcessStatus,
   RotateOptions,
   ScaleOptions,
-  KeyframeOptions,
-  KeyframeItem,
-  CommonObject,
-} from './index.d';
+  StyleObject,
+  TaskProcessType,
+} from './type';
 
 declare const window: any;
 
@@ -28,11 +30,21 @@ class DomRender {
   /**
    * Record the style every step
    */
-  stylesRecordQueue:CommonObject [] = [];
+  stylesRecordQueue: CommonObject [] = [];
 
   timeLine: any[];
 
   tempQueue: Object[];
+
+  /**
+   * current task process type
+   */
+  currentTaskProcessType: TaskProcessType = TaskProcessType.STOP;
+
+  /**
+   *  render status
+   */
+  processStatus:ProcessStatus = ProcessStatus.STOP;
 
   /**
    * Creates an instance of DomRender.
@@ -60,9 +72,11 @@ class DomRender {
   static install(mot: any) {
     this.mot = mot;
     // register a function on the 'mot'
-    mot.register('dom', (dom: HTMLElement, Animation: any) => {
-      return new DomRender(dom, Animation);
-    });
+    mot.register(
+      'dom',
+      (dom: HTMLElement, Animation: any) => {
+        return new DomRender(dom, Animation);
+      });
   }
 
   /**
@@ -147,7 +161,6 @@ class DomRender {
    * @memberof DomRender
    */
   render() {
-    DomRender.mot.emit('domRenderBeforeRender', this);
     const waitingList: StyleObject[] = this.getStyleFromTaskQueue(
       this.taskQueue,
     );
@@ -155,7 +168,9 @@ class DomRender {
     let index: number = 0;
     const next = (item: StyleObject, time: number = -1) => {
       const done = () => {
+        this.processStatus = ProcessStatus.PLAYING;
         const {style} = item;
+        this.currentTaskProcessType = TaskProcessType[item.type.toUpperCase()]
         // eslint-disable-next-line guard-for-in
         for (const attr in style) {
           this.target.style[attr] = style[attr];
@@ -168,7 +183,9 @@ class DomRender {
           );
         }
       };
-      // 判断是同步还是异步执行 -1 代表同步 -2 代表走requestAnimationFrame
+      // 判断是同步还是异步执行
+      // -1 代表同步
+      // -2 代表走requestAnimationFrame
       if (time === -1) {
         done();
       } else if (time === -2) {
@@ -184,6 +201,7 @@ class DomRender {
     setTimeout(() => {
       next(waitingList[0]);
     }, 0);
+    return this;
   }
 
   /**
@@ -245,28 +263,31 @@ class DomRender {
       if (item.type == 'group') {
         item.children.forEach((child) => {
           child.duration = item.duration;
-          styleArray.push({style: this.transferAction(child), duration: -1});
+          styleArray.push({style: this.transferAction(child), duration: -1,type:item.action});
         });
-        styleArray.push({style: {}, duration: item.duration});
+        styleArray.push({style: {}, duration: item.duration,type:item.action});
       } else if (item.action == 'wait') {
-        styleArray.push({style: {}, duration: item.time});
+        styleArray.push({style: {}, duration: item.time,type:item.action});
       } else if (item.action == 'statusOn' || item.action == 'statusOff') {
         styleArray.push({
           style: {},
           duration: item.duration,
           status: item.action,
+          type:item.action
         });
       } else if (item.action === 'path') {
         item.points.forEach((point) => {
           styleArray.push({
             style: {left: `${point.x}px`, top: `${point.y}px`},
             duration: -2,
+            type:item.action
           });
         });
       } else {
         styleArray.push({
           style: this.transferAction(item),
           duration: item.duration,
+          type:item.action
         });
       }
     });
@@ -609,9 +630,12 @@ class DomRender {
     dom.className = c;
   }
 
-  pause() {}
+  pause() {
 
-  play() {}
+  }
+
+  play() {
+  }
 }
 
 export default DomRender;

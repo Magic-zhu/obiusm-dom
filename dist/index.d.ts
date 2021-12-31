@@ -1,4 +1,4 @@
-import { Action, StyleObject, AttributeOptions, RotateOptions, ScaleOptions, KeyframeOptions, CommonObject } from './index.d';
+import { Action, AttributeOptions, CommonObject, KeyframeOptions, ProcessStatus, RotateOptions, ScaleOptions, StyleObject, TaskProcessType } from './type';
 declare class DomRender {
     static pluginName: string;
     static installed: boolean;
@@ -11,13 +11,15 @@ declare class DomRender {
     stylesRecordQueue: CommonObject[];
     timeLine: any[];
     tempQueue: Object[];
+    currentTaskProcessType: TaskProcessType;
+    processStatus: ProcessStatus;
     constructor(dom: HTMLElement, Animation: any);
     static install(mot: any): void;
     init(): void;
     update(transform: string | null, transitionProperty: string | null): void;
     getOriginStyleTransform(element: HTMLElement): any[];
     initStyle(taskQueue: Action[]): void;
-    render(): void;
+    render(): this;
     mergeTransForm(origin: any[], newStyle: string): string;
     mergeTransitionProperty(origin: string[], newProperty: string): string;
     getStyleFromTaskQueue(taskQueue: any[]): StyleObject[];

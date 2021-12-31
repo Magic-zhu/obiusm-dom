@@ -41,7 +41,7 @@
         requestAnimationFrame(loop);
       });
     };
-    script.src = '//mrdoob.github.io/stats.js/build/stats.min.js';
+    script.src = 'https://mrdoob.github.io/stats.js/build/stats.min.js';
     document.head.appendChild(script);
   })();
 </script>
@@ -86,8 +86,9 @@
       direction: 'alternate',
       iterationCount: 'infinite',
     });
-  console.log(animation);
-  obiusm.dom(app, animation).render();
+  let renderer = obiusm.dom(app, animation)
+  console.log(renderer);
+  renderer.render();
 </script>
 
 </html>
