@@ -45,11 +45,11 @@
         frameFunction: (t) => {
             return 2
         },
-        onStop: () => {
-
+        onBegin: () => {
+            console.log('begin')
         },
-        onStart: () => {
-
+        onFinish: () => {
+            console.log('finish')
         }
     })
     console.log(animation)

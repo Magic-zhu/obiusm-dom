@@ -180,16 +180,20 @@ class DomRender {
       // 判断是同步还是异步执行
       // -1 代表同步
       // -2 代表走requestAnimationFrame
-      if (time === -1) {
-        done();
-      } else if (time === -2) {
-        requestAnimationFrame(() => {
+      switch (time) {
+        case -1:
           done();
-        });
-      } else {
-        setTimeout(() => {
-          done();
-        }, time);
+          break;
+        case -2:
+          requestAnimationFrame(() => {
+            done();
+          });
+          break;
+        default:
+          setTimeout(() => {
+            done();
+          }, time);
+          break;
       }
     };
     setTimeout(() => {
